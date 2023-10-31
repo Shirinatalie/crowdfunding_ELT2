@@ -10,7 +10,8 @@ CREATE TABLE "Category" (
         "category_id"
      )
 );
-
+Select *
+From "Category"
 CREATE TABLE "Subcategory" (
     "subcategory_id" varchar   NOT NULL,
     "subcategory" varchar   NOT NULL,
@@ -18,6 +19,8 @@ CREATE TABLE "Subcategory" (
         "subcategory_id"
      )
 );
+Select *
+From "Subcategory"
 
 CREATE TABLE "Campaign" (
     "cf_id" int   NOT NULL,
@@ -38,7 +41,8 @@ CREATE TABLE "Campaign" (
         "cf_id"
      )
 );
-
+Select *
+From "Campaign"
 CREATE TABLE "Contact" (
     "contact_id" int   NOT NULL,
     "first_name" varchar   NOT NULL,
@@ -48,13 +52,26 @@ CREATE TABLE "Contact" (
         "contact_id"
      )
 );
+Select *
+From "Contact";
+ALTER TABLE "Campaign" ADD CONSTRAINT "fk_Campaign__contact_id" FOREIGN KEY("contact_id")
+REFERENCES "Contact" ("contact_id");
 
-ALTER TABLE "Campaign" ADD CONSTRAINT "fk_Campaign__contact_id" FOREIGN KEY("", "contact_id")
-REFERENCES "Contact" ("", "contact_id");
+ALTER TABLE "Campaign" ADD CONSTRAINT "fk_Campaign__category_id" FOREIGN KEY("category_id")
+REFERENCES "Category" ("category_id");
 
-ALTER TABLE "Campaign" ADD CONSTRAINT "fk_Campaign__category_id" FOREIGN KEY("", "category_id")
-REFERENCES "Category" ("", "category_id");
-
-ALTER TABLE "Campaign" ADD CONSTRAINT "fk_Campaign__subcategory-id" FOREIGN KEY("", "subcategory-id")
-REFERENCES "Subcategory" ("", "subcategory_id");
-
+ALTER TABLE "Campaign" ADD CONSTRAINT "fk_Campaign__subcategory-id" FOREIGN KEY("subcategory-id")
+REFERENCES "Subcategory" ("subcategory_id");
+COPY "Category"
+FROM 'C:/Users/tutuw/Desktop/Boot_camp/ETL_Final/crowdfunding_ELT2/Resources/Category.csv'
+DELIMITER '|'
+CSV HEADER;
+FROM 'C:/Users/tutuw/Desktop/Boot_camp/ETL_Final/crowdfunding_ELT2/Resources/Subcategory.csv'
+DELIMITER '|'
+CSV HEADER;
+FROM 'C:/Users/tutuw/Desktop/Boot_camp/ETL_Final/crowdfunding_ELT2/Resources/Campaign.csv'
+DELIMITER '|'
+CSV HEADER;
+FROM 'C:/Users/tutuw/Desktop/Boot_camp/ETL_Final/crowdfunding_ELT2/Resources/Contact.csv'
+DELIMITER '|'
+CSV HEADER;
